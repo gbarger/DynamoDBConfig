@@ -174,15 +174,15 @@ class Config:
                                            object data.
                 key_id (str): The Key ID from the IAM Encryption key you are using to 
                               encrypt the data in the configuration object
-                string_to_encrypt (str): The string you want encrypted. If this is an int, float, 
-                                         or bool, it will be converted to a string.
+                string_to_encrypt (str): The string you want encrypted. If this is not a String, 
+                                         it will be converted to a string.
 
             Returns:
                 str: The encrypted value of the input string. If there is an error in the 
                      encryption process, this will return the original value.
         """
         try:
-            if type(string_to_encrypt) is int or type(string_to_encrypt) is float or type(string_to_encrypt) is bool:
+            if type(string_to_encrypt) is not str:
                 string_to_encrypt = str(string_to_encrypt)
 
             encrypted_value = kms_client.encrypt(KeyId=key_id, Plaintext=string_to_encrypt)
